@@ -158,3 +158,196 @@
     s.slice(5, 6); // "5"
     s.slice(10); // "abcdefg
   ```
+  * str.indexOf('a'),str.lastIndexOf('a'),返回str中a的索引，lastIndexOf是从后往前查找，但是索引还是和indexOf一样从左开始，如果不存在，返回-1;
+  * 'hello,world'.includes('hello');//true
+  * replace  
+      'hello,jack'.replace('jack','Tom');//hello,Tom
+      ```
+      'hello,world'.replace(/([a-zA-z])([a-zA-Z]+)/g,function(match,g1,g2){
+        return g1.toUpperCase()+g2.toLowerCase();//Hello,World;
+      })
+      ```
+  * str.toUpperCase();/str.toLowerCase();字母转为大写/小写
+  * repeat ES6
+    1. 'abc'.repeat(2);//'abcabc'
+    2. new Array(3).join('abc');//'abcabc'，相当于[,,]把逗号换成abc
+## <h2>8. Date</h2>
+### <h3>8.1 创建Date对象</h3>
+  * new Date();//不传参数，默认是当前的时间。
+  * new Date(100000)；//一个参数为时间戳，会转化为年月日...
+  * deadline =new Date("2017/11/17,23:59:59"),
+### <h3>8.2 获取时间</h3>
+  * 获取时间戳： (new Date()).getTime()
+  * 获取年份： (new Date()).getFullYear();
+  * 获取月份：(new Date()).getMonth+1;//月份0-11；需要加1；
+  * 获得几号： (new Date()).getDate();
+  * 获取周几：(new Date()).getDay();
+  * getHours();getMinutes();getSeconds();getMilliseconds();
+## <h2>9. Date</h2>  
+## <h2>10. 操作符</h2>  
+  ```
+  if(fn) fn();//简写fn&&fn();
+  var default= option || {};
+  ```
+## <h2>11. 构造函数</h2>
+```
+  function Cat(name){
+    this.name=name;
+    this.sound='Meow';
+  }
+  let cat=new Cat('Tom');
+  cat.sound;
+  Cat.prototype.speak=function(){
+    console.log(this.sound);
+  }
+  cat.speak;
+  cat.constructor;//Cat
+  cat instanceof Cat;//true;
+```
+## <h2>12. 条件</h2>
+  * 三目运算符 a=1?'yes':'no';
+  * switch(val){case 1: ...;break;case 2: ...;break;}
+  * if...else.../if...else if..else...
+## <h2>13. 注释</h2>
+  * 单行 //
+  * 多行 /**/  /*TODO:xxx*/
+  * <!--xxx-->
+## <h2>14. 数组</h2>
+### <h3>14.1 数组与类数组</h3>
+```
+    var realArray=['a','b','c'];
+    var arrayLike={0:'a',1:'b',2:'c',length:3};
+    //1. Array.from
+    Array.from(arrayLike);//["a", "b", "c"]
+    //2. for...of
+    var newArray=[];
+    for(let item of values(arrayLike)){
+      newArray.push(item);
+    }
+    //3. ES5
+    [].slice.call(arrayLike);
+```
+### <h3>14.2 reduce</h3>
+[arr.reduce(callback[, initialValue])](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce)
+求和
+```
+[1,2,3,4].reduce(function(a,b){
+  return a+b;
+});
+```
+求最小值
+```
+[1,2,3,4].reduce(function(a,b){
+  return a<b?a:b;
+},Infinity);
+```
+去重
+```
+[1,2,3,4,5,2,3].reduce(function(a,b){
+  if(a.indexOf(b)===-1){
+    a.push(b);
+  }
+  return a;
+},[]);
+// [1, 2, 3, 4, 5]
+```
+### <h3>14.2 map</h3>
+```
+  ['one', 'two', 'three', 'four'].map(function(value, index, arr) {
+  return value.length;
+  });
+  // ? [3, 3, 5, 4]
+  Version ≥ 6
+  ['one', 'two', 'three', 'four'].map(value => value.length);
+  // ? [3, 3, 5, 4]
+```
+### <h3>14.3 filter</h3>
+过滤ary.filter(fn(element, index, array)){//条件});返回满足条件的数组
+```
+  var numbers = [5, 32, 43, 4];
+  var odd = numbers.filter(function(n) { return n % 2 !== 0;});
+  //Version ≥ 6
+  let odd = numbers.filter(n => n % 2 !0); // [5,43];
+```
+### <h3>14.3 sort</h3>
+排序
+```
+  array.sort(function(a,b){return a-b});
+  // 按照单词长度从短到长排序。
+  ["zebras", "dogs", "elephants", "penguins"].sort(function(a, b) {
+  return a.length - b.length;
+  });
+```
+### <h3>14.4 去重</h3>
+```
+  //1. ES5,利用如果有重复，当前重复项被查找出的index不等于本身的index;
+  var array=[2,2,3,4,5,3];
+  array.filter(function(value,index,array){
+    return array.indexOf(value)===index;
+  });
+  //2 .
+  [1,2,3,4,5,2,3].reduce(function(a,b){
+    if(a.indexOf(b)===-1){
+      a.push(b);
+    }
+    return a;
+  },[]);
+  // [1, 2, 3, 4, 5]
+  //3. ES6，利用Set()不含重复项。
+  [...new Set(array))];
+```
+### <h3>14.4 clone</h3>
+```
+  //1. ES5
+  var array=[2,2,3,4,5,3];
+  var newArray=Array.prototype.slice.call(array);
+  var newArray=[].slice.call(array);
+  //3. ES6
+  var newArray=Array.from(array);
+  var newArray=Array.of(...array);
+```
+### <h3>14.4 数组连接</h3>
+```
+  //1. ES5
+  ary1.concat(ary2,ary3);
+  //3. ES6
+  [...ary1,...ary2];
+```
+### <h3>14.5 find</h3>
+```
+  array.find(function(val,index,arr){
+    return val>2;//返回大于2的第一个的值;
+  });
+```
+### <h3>14.6 数组增删</h3>
+  * shift();从前面删除
+  * pop();从后面删除
+  * unshift();从前面添加
+  * push(); 从后面添加；
+  * splice(index,count,ele);从index，删除count,ele根据count,和自己的个数，判断是删除，替换还是添加；
+  * 数组清空
+    1. arry=[];
+    2. arry.length=0;
+  * 数组中最大最小值
+    1. Math.max.apply(null,arr);
+    2. Math.max(...arr);
+  * entries
+  ```
+    var arr = ["a", "b", "c"];
+    var iterator = arr.entries();
+    // undefined
+
+    for (let e of iterator) {
+        console.log(e);
+    }
+
+    // [0, "a"] 
+    // [1, "b"] 
+    // [2, "c"]
+  ```
+### <h3>14.7 判断是否是数组</h3>
+  * Array.isArray(obj);
+  * obj instanceof Array;
+  * obj.constructor===Array;
+  * 是否具有数组的方法sort...等；
+## <h2>15 对象</h2>
