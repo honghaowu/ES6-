@@ -71,7 +71,25 @@
       xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded');
       xhr.send('name=wh&age=28');
      ```
-   * 1.5 小结
+* 1.5 jQuery的ajax
+     - $.ajax({}) 可配置方式发起Ajax请求
+     - $.get() 以GET方式发起Ajax请求
+     - $.post() 以POST方式发起Ajax请求
+   ```
+    $.ajax({
+      type : 'get',
+      url : 'getCode.php',
+      data : {'mobile' : phone},
+      dataType : 'json',
+      beforeSend : function(){
+
+      },
+      success : function(info){
+
+      }
+    });
+   ```
+   * 1.6 小结
       - get 没有请求主体, 使用 xhr.send(null) 发送请求主体
       - get 可以通过请求 url 上添加请求函数
       - post 可以通过 xhr.send( 'name=itcast&age=10' ) 发送请求主体
