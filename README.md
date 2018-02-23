@@ -44,3 +44,6 @@
   - repeat()  
     'x'.repeat(3) // "xxx"
   - 字符串中嵌入变量:let name = "Bob", time = "today";`Hello ${name}, how are you ${time}?`
+
+
+[javascript 总结（常用工具类的封装）](https://segmentfault.com/a/1190000013041329)
