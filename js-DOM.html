@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="box">
+    <div class="box1">box1<p>1</p></div>
+    <div class="box2">box2</div>
+    <div class="box3">box3</div>
+  </div>
+  <script>
+    /**
+     * 1元素获取
+     *  getElementById
+        getElementsByTagName
+        getElementsByClassName
+        querySelector
+        querySelectorAll
+      * 2 创建
+        document.createElement('div')
+        document.createDocumentFragment() 创建文档碎片
+      * 3 操作
+        parentNode.appendChild(DOM) 追加
+        parentNode.insertBefore(new,old); new是要插入的结点
+        parentNode.removeChild(DOM); 把子DOM移除。
+        parentNode.replaceChild(newDOM,oldDOM); 新的替换旧的
+        DOM.cloneNode(true); 带true是里面的子集也复制。
+      * 4 关于带不带文本节点
+         包括文本节点的有 firstChild lastChild childNotes previousSibling nextSibling
+         不包括文本 children firstElementChild ..previousElementSibling
+      * 5 其他的
+        ele.setAttribute(key,val);
+        ele.getAttribute(key);
+      * 6 样式兼容写法
+        function(obj,attr){
+          return obj.currentStyle?obj.curentStyle[attr]:getComputedStyle(obj,null)[attr];
+        }
+     * **/
+    var oB=document.getElementById("box");
+    var newBox=document.createElement('div');
+    newBox.innerHTML='box4';
+    
+    oB.appendChild(newBox);// 追加
+    var inB=document.createElement('span');
+    inB.innerHTML='a<strong>b</strong>';
+    oB.insertBefore(inB,newBox);// 前面插入
+    var cN=inB.cloneNode(true);//复制，加true,带子集一起复制
+    oB.appendChild(cN);
+    var box1=document.getElementsByClassName('box1')[0];
+    var box2=document.getElementsByClassName('box2')[0];
+
+    console.log(box1.firstChild); // 包括文本
+    console.log(box1.firstElementChild);//元素节点，不包括文本
+    console.log(box2.previousSibling);//包括文本
+    console.log(box2.previousElementSibling);// 不包括
+
+    console.log(box2.childNodes);//包括文本节点
+    console.log(box1.children);// 不包括文本节点
+
+    console.log(box1.parentNode);// 父节点。
+    
+    oB.removeChild(box2);
+  </script>
+</body>
+</html>
